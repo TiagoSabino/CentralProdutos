@@ -1,0 +1,8 @@
+﻿.side-image {
+    background-image: url("../Imagens/Login.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    border-radius: 10px 0 0 10px;
+}

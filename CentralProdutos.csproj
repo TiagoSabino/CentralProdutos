@@ -1,4 +1,5 @@
 ﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -14,7 +15,7 @@
     <RootNamespace>CentralProdutos</RootNamespace>
     <AssemblyName>CentralProdutos</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44348</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
@@ -43,7 +44,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data.SQLite, Version=1.0.119.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.119.0\lib\net46\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.119.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>packages\System.Data.SQLite.EF6.1.0.119.0\lib\net46\System.Data.SQLite.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.119.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>packages\System.Data.SQLite.Linq.1.0.119.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -67,12 +83,81 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".gitattributes" />
+    <Content Include=".gitignore" />
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap-grid.css" />
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap-grid.min.css" />
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap-grid.rtl.css" />
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap-grid.rtl.min.css" />
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap-reboot.css" />
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap-reboot.min.css" />
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap-reboot.rtl.css" />
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap-reboot.rtl.min.css" />
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap-utilities.css" />
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap-utilities.min.css" />
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap-utilities.rtl.css" />
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap-utilities.rtl.min.css" />
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap.css" />
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap.min.css" />
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap.rtl.css" />
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap.rtl.min.css" />
+    <Content Include="bootstrap-5.0.2-dist\js\bootstrap.bundle.js" />
+    <Content Include="bootstrap-5.0.2-dist\js\bootstrap.bundle.min.js" />
+    <Content Include="bootstrap-5.0.2-dist\js\bootstrap.esm.js" />
+    <Content Include="bootstrap-5.0.2-dist\js\bootstrap.esm.min.js" />
+    <Content Include="bootstrap-5.0.2-dist\js\bootstrap.js" />
+    <Content Include="bootstrap-5.0.2-dist\js\bootstrap.min.js" />
+    <Content Include="Imagens\Login.jpg" />
+    <Content Include="Login.aspx" />
+    <Content Include="PosLogin.aspx" />
+    <Content Include="styles.css" />
+    <Content Include="Style\styleGeral.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseDados\CentralProdutosDataContext.cs" />
+    <Compile Include="BaseDados\Entidades\USUARIO.cs" />
+    <Compile Include="BaseDados\Negocio\UsuarioNegocio.cs" />
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PosLogin.aspx.cs">
+      <DependentUpon>PosLogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PosLogin.aspx.designer.cs">
+      <DependentUpon>PosLogin.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap-grid.css.map" />
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap-grid.min.css.map" />
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap-grid.rtl.css.map" />
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap-grid.rtl.min.css.map" />
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap-reboot.css.map" />
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap-reboot.min.css.map" />
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap-reboot.rtl.css.map" />
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap-reboot.rtl.min.css.map" />
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap-utilities.css.map" />
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap-utilities.min.css.map" />
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap-utilities.rtl.css.map" />
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap-utilities.rtl.min.css.map" />
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap.css.map" />
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap.min.css.map" />
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap.rtl.css.map" />
+    <Content Include="bootstrap-5.0.2-dist\css\bootstrap.rtl.min.css.map" />
+    <Content Include="bootstrap-5.0.2-dist\js\bootstrap.bundle.js.map" />
+    <Content Include="bootstrap-5.0.2-dist\js\bootstrap.bundle.min.js.map" />
+    <Content Include="bootstrap-5.0.2-dist\js\bootstrap.esm.js.map" />
+    <Content Include="bootstrap-5.0.2-dist\js\bootstrap.esm.min.js.map" />
+    <Content Include="bootstrap-5.0.2-dist\js\bootstrap.js.map" />
+    <Content Include="bootstrap-5.0.2-dist\js\bootstrap.min.js.map" />
+    <Content Include="BaseDados\baseCentralProdutos.db" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -81,6 +166,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -96,7 +182,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>53413</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44348/</IISUrl>
+          <IISUrl>http://localhost/CentralProdutos</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
@@ -111,7 +197,12 @@
       <ErrorText>Este projeto faz referência a pacotes do NuGet que não estão presentes neste computador. Use a Restauração de Pacotes do NuGet para baixá-los.  Para obter mais informações, consulte http://go.microsoft.com/fwlink/?LinkID=322105. O arquivo ausente é {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.119.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.119.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
   </Target>
+  <Import Project="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.119.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.119.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
+  <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
